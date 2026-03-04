@@ -79,10 +79,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/yashnevase/express-backend-boilerplate.git"
+    "url": "git+https://github.com/yashnevase/express-production-starter.git"
   },
-  "homepage": "https://github.com/yashnevase/express-backend-boilerplate#readme",
+  "homepage": "https://github.com/yashnevase/express-production-starter#readme",
   "bugs": {
-    "url": "https://github.com/yashnevase/express-backend-boilerplate/issues"
+    "url": "https://github.com/yashnevase/express-production-starter/issues"
   }
 }

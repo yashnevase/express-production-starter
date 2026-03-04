@@ -24,7 +24,7 @@ npm run dev
 ### Option 2: Clone & Install
 
 ```bash
-git clone https://github.com/yashnevase/express-backend-boilerplate.git my-backend
+git clone https://github.com/yashnevase/express-production-starter.git my-backend
 cd my-backend
 npm install
 cp .env.example .env
