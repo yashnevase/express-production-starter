@@ -1,10 +1,10 @@
 {
-  "name": "exnj",
+  "name": "exnj5",
   "version": "1.0.0",
   "description": "Production-ready Express.js backend boilerplate with RBAC, security, caching, and best practices built-in",
   "main": "src/index.js",
   "bin": {
-    "exnj": "bin/cli.js"
+    "exnj5": "bin/cli.js"
   },
   "scripts": {
     "start": "node src/server.js",

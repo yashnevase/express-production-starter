@@ -8,7 +8,7 @@ const projectName = process.argv[2];
 
 if (!projectName) {
   console.error('❌ Error: Please provide a project name');
-  console.log('Usage: npx @production-backend/express-starter <project-name>');
+  console.log('Usage: npx exnj5 <project-name>');
   process.exit(1);
 }
 

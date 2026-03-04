@@ -12,7 +12,7 @@
 ### Option 1: Use CLI (Recommended)
 
 ```bash
-npx exnj my-backend
+npx exnj5 my-backend
 cd my-backend
 npm install
 cp .env.example .env
