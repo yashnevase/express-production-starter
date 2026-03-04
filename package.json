@@ -1,6 +1,6 @@
 {
   "name": "exnj5",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Production-ready Express.js backend boilerplate with RBAC, security, caching, and best practices built-in",
   "main": "src/index.js",
   "bin": {
