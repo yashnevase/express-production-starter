@@ -73,7 +73,6 @@ const initMiddleware = (app) => {
     
     res.on('finish', () => {
       const duration = Date.now() - startTime;
-      res.setHeader('X-Response-Time', `${duration}ms`);
       
       const level = res.statusCode >= 500 ? 'error' : (res.statusCode >= 400 ? 'warn' : 'info');
       logger[level](`[${req.correlationId}] ${req.method} ${req.originalUrl} ${res.statusCode} ${duration}ms`);
@@ -82,6 +81,14 @@ const initMiddleware = (app) => {
         logger.warn(`Slow request detected: ${req.method} ${req.originalUrl} took ${duration}ms`);
       }
     });
+    
+    // Set response time header before sending response
+    const originalSend = res.send;
+    res.send = function(data) {
+      const duration = Date.now() - startTime;
+      res.setHeader('X-Response-Time', `${duration}ms`);
+      return originalSend.call(this, data);
+    };
     
     next();
   });

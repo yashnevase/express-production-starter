@@ -1,13 +1,13 @@
 # # Dependencies
-# node_modules/
-# package-lock.json
-# yarn.lock
+node_modules/
+package-lock.json
+yarn.lock
 
-# # Environment
-# .env
-# .env.local
-# .env.production
-# .env.*.local
+# Environment
+.env
+.env.local
+.env.production
+.env.*.local
 
 # # Logs
 logs/*
@@ -22,34 +22,34 @@ pnpm-debug.log*
 uploads/*
 !uploads/.gitkeep
 
-# # OS
-# .DS_Store
-# .DS_Store?
-# ._*
-# .Spotlight-V100
-# .Trashes
-# ehthumbs.db
-# Thumbs.db
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
 
-# # IDE
-# .vscode/
-# .idea/
-# *.swp
-# *.swo
-# *~
-# .project
-# .classpath
-# .settings/
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
 
-# # Testing
-# coverage/
-# .nyc_output/
+# Testing
+coverage/
+.nyc_output/
 
-# # Build
-# dist/
-# build/
+# Build
+dist/
+build/
 
-# # Temporary
-# tmp/
-# temp/
-# *.tmp
+# Temporary
+tmp/
+temp/
+*.tmp

@@ -1,7 +1,7 @@
 const puppeteer = require('puppeteer');
 const path = require('path');
 const fs = require('fs');
-const logger = require('../config/logger');
+const logger = require('../../config/logger');
 
 // Create directory for PDFs if it doesn't exist
 

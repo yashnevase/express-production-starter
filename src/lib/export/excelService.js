@@ -1,7 +1,7 @@
 const ExcelJS = require('exceljs');
 const path = require('path');
 const fs = require('fs');
-const logger = require('../config/logger');
+const logger = require('../../config/logger');
 
 // Create directory for Excel files if it doesn't exist
 
