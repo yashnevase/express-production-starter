@@ -11,6 +11,11 @@ const app = express();
 
 initMiddleware(app);
 
+if (process.env.ENABLE_ACTION_LOGGING !== 'false') {
+  const actionLogger = require('./middleware/actionLogger');
+  app.use(actionLogger);
+}
+
 if (process.env.ENABLE_API_TRACKING !== 'false') {
   app.use(trackAPIPerformance);
 }

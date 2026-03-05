@@ -42,30 +42,192 @@ const options = {
           properties: {
             user_id: {
               type: 'integer',
-              description: 'User ID'
+              description: 'User ID',
+              example: 1
             },
             email: {
               type: 'string',
               format: 'email',
-              description: 'User email address'
+              description: 'User email address',
+              example: 'user@example.com'
             },
             full_name: {
               type: 'string',
-              description: 'User full name'
+              description: 'User full name',
+              example: 'John Doe'
             },
             role: {
-              type: 'string',
-              enum: ['SUPER_ADMIN', 'ADMIN', 'MANAGER', 'USER'],
-              description: 'User role'
+              type: 'integer',
+              description: 'Role ID',
+              example: 4
+            },
+            userRole: {
+              $ref: '#/components/schemas/Role'
             },
             is_active: {
               type: 'boolean',
-              description: 'Account status'
+              description: 'Account status',
+              example: true
+            },
+            email_verified: {
+              type: 'boolean',
+              description: 'Email verification status',
+              example: true
+            },
+            last_login_at: {
+              type: 'string',
+              format: 'date-time',
+              description: 'Last login timestamp',
+              nullable: true
+            },
+            scheduled_deactivation_at: {
+              type: 'string',
+              format: 'date-time',
+              description: 'Scheduled deactivation date',
+              nullable: true
+            },
+            profile_photo: {
+              type: 'string',
+              description: 'Profile photo URL',
+              nullable: true
             },
             created_at: {
               type: 'string',
               format: 'date-time',
               description: 'Account creation timestamp'
+            },
+            updated_at: {
+              type: 'string',
+              format: 'date-time',
+              description: 'Last update timestamp'
+            }
+          }
+        },
+        Role: {
+          type: 'object',
+          properties: {
+            role_id: {
+              type: 'integer',
+              description: 'Role ID',
+              example: 1
+            },
+            role_name: {
+              type: 'string',
+              description: 'Role name',
+              example: 'ADMIN'
+            },
+            description: {
+              type: 'string',
+              description: 'Role description',
+              nullable: true
+            },
+            is_system_role: {
+              type: 'boolean',
+              description: 'System role flag',
+              example: true
+            },
+            is_active: {
+              type: 'boolean',
+              description: 'Role status',
+              example: true
+            }
+          }
+        },
+        Permission: {
+          type: 'object',
+          properties: {
+            permission_id: {
+              type: 'integer',
+              description: 'Permission ID',
+              example: 1
+            },
+            permission_key: {
+              type: 'string',
+              description: 'Permission key',
+              example: 'users.view'
+            },
+            permission_name: {
+              type: 'string',
+              description: 'Permission name',
+              example: 'View Users'
+            },
+            module: {
+              type: 'string',
+              description: 'Module name',
+              example: 'users'
+            },
+            description: {
+              type: 'string',
+              description: 'Permission description',
+              nullable: true
+            }
+          }
+        },
+        AuthResponse: {
+          type: 'object',
+          properties: {
+            success: {
+              type: 'boolean',
+              example: true
+            },
+            message: {
+              type: 'string',
+              example: 'Login successful'
+            },
+            data: {
+              type: 'object',
+              properties: {
+                accessToken: {
+                  type: 'string',
+                  description: 'JWT access token',
+                  example: 'eyJhbGciOiJIUzI1NiIs...'
+                },
+                refreshToken: {
+                  type: 'string',
+                  description: 'JWT refresh token',
+                  example: 'eyJhbGciOiJIUzI1NiIs...'
+                },
+                user: {
+                  $ref: '#/components/schemas/User'
+                }
+              }
+            }
+          }
+        },
+        OTPResponse: {
+          type: 'object',
+          properties: {
+            success: {
+              type: 'boolean',
+              example: true
+            },
+            message: {
+              type: 'string',
+              example: 'Registration successful. Please verify your email with the OTP sent.'
+            },
+            data: {
+              type: 'object',
+              properties: {
+                userId: {
+                  type: 'integer',
+                  example: 1
+                },
+                email: {
+                  type: 'string',
+                  format: 'email',
+                  example: 'user@example.com'
+                },
+                otp: {
+                  type: 'string',
+                  description: 'OTP (only in development mode)',
+                  example: '123456'
+                },
+                devMode: {
+                  type: 'boolean',
+                  description: 'Development mode flag',
+                  example: true
+                }
+              }
             }
           }
         },
@@ -205,7 +367,13 @@ const options = {
       }
     ]
   },
-  apis: ['./src/routes/*.js', './src/models/*.js']
+  apis: [
+    './src/routes/*.js',
+    './src/modules/*/routes/*.js',
+    './src/modules/*/controllers/*.js',
+    './src/modules/*/validators/*.js',
+    './src/models/*.js'
+  ]
 };
 
 const specs = swaggerJsdoc(options);

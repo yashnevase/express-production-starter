@@ -1,8 +1,9 @@
-const { verifyToken } = require('../config/security');
+const { tokenService } = require('../lib/auth');
 const { ApiError } = require('./errorHandler');
 const logger = require('../config/logger');
+const db = require('../models');
 
-const authenticateToken = (req, res, next) => {
+const authenticateToken = async (req, res, next) => {
   try {
     const authHeader = req.headers.authorization;
     const token = authHeader?.split(' ')[1];
@@ -11,12 +12,32 @@ const authenticateToken = (req, res, next) => {
       throw ApiError.unauthorized('No token provided');
     }
     
-    const payload = verifyToken(token);
+    const payload = tokenService.verifyAccessToken(token);
     if (!payload) {
       throw ApiError.unauthorized('Invalid or expired token');
     }
     
-    req.user = payload;
+    const user = await db.User.findByPk(payload.user_id);
+    if (!user || !user.is_active || user.deleted_at) {
+      throw ApiError.unauthorized('User not found or inactive');
+    }
+    
+    const roleData = await db.Role.findByPk(user.role, {
+      include: [{
+        model: db.Permission,
+        as: 'permissions',
+        attributes: ['permission_key']
+      }]
+    });
+    
+    const permissions = roleData ? roleData.permissions.map(p => p.permission_key) : [];
+    
+    req.user = {
+      ...payload,
+      permissions,
+      role: roleData ? roleData.role_name : 'USER'
+    };
+    
     next();
   } catch (error) {
     next(error);

@@ -1,6 +1,7 @@
 require('dotenv').config();
 const cluster = require('cluster');
 const os = require('os');
+const { startAllJobs } = require('./jobs');
 const app = require('./app');
 const { testConnection, closeConnection } = require('./config/db');
 const logger = require('./config/logger');
@@ -51,6 +52,11 @@ if (ENABLE_CLUSTER && cluster.isMaster) {
     if (!dbConnected) {
       logger.error('Database connection failed. Exiting...');
       process.exit(1);
+    }
+    
+    if (!cluster.isWorker || cluster.worker.id === 1) {
+      const { startAllJobs } = require('./jobs');
+      startAllJobs();
     }
     
     if (process.env.ENABLE_SYSTEM_HEALTH_LOG === 'true' && (!cluster.isWorker || cluster.worker.id === 1)) {
